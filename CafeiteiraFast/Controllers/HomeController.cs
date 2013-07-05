@@ -74,6 +74,10 @@ namespace CafeiteiraFast.Controllers
                 if (statusCafeteira.Status == CafeteiraStatus.eStatus.Iniciado)
                 {
                     data = data.AddMinutes(-(DateTime.Now - statusCafeteira.Data.AddMinutes(CafeteiraStatus.TEMPO_MEDIO_CAFE_PRONTO_EM_MINUTOS)).TotalMinutes);
+                    if (data >= DateTime.Now)
+                    {
+                        data = DateTime.Now;
+                    }
                 }
                 statusCafeteira = new CafeteiraStatus { Data = data, Status = CafeteiraStatus.eStatus.Pronto };
                 SalvarCateteiraStatus(statusCafeteira);
