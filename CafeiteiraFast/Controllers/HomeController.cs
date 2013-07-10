@@ -5,6 +5,7 @@ using System.Web.Mvc;
 using System.Xml.Serialization;
 using CafeiteiraFast.Models;
 using CafeiteiraFast.ViewModels;
+using CafeiteiraFast.Components;
 
 namespace CafeiteiraFast.Controllers
 {
@@ -70,6 +71,7 @@ namespace CafeiteiraFast.Controllers
             try
             {
                 ValidarPronto(statusCafeteira);
+
                 var data = DateTime.Now;
                 if (statusCafeteira.Status == CafeteiraStatus.eStatus.Iniciado)
                 {
@@ -80,6 +82,7 @@ namespace CafeiteiraFast.Controllers
                     }
                 }
                 statusCafeteira = new CafeteiraStatus { Data = data, Status = CafeteiraStatus.eStatus.Pronto };
+
                 SalvarCateteiraStatus(statusCafeteira);
             }
             catch (Exception ex)

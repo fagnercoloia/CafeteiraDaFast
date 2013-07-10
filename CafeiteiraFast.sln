@@ -3,6 +3,8 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CafeiteiraFast", "CafeiteiraFast\CafeiteiraFast.csproj", "{059CA088-75E0-4294-AE02-0F5C67CAD593}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CafeteiraFast.Testes", "CafeteiraFast.Testes\CafeteiraFast.Testes.csproj", "{29A75157-86D0-4A7D-8D63-63F45F0ED10C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -13,6 +15,10 @@ Global
 		{059CA088-75E0-4294-AE02-0F5C67CAD593}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{059CA088-75E0-4294-AE02-0F5C67CAD593}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{059CA088-75E0-4294-AE02-0F5C67CAD593}.Release|Any CPU.Build.0 = Release|Any CPU
+		{29A75157-86D0-4A7D-8D63-63F45F0ED10C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{29A75157-86D0-4A7D-8D63-63F45F0ED10C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{29A75157-86D0-4A7D-8D63-63F45F0ED10C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{29A75157-86D0-4A7D-8D63-63F45F0ED10C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
