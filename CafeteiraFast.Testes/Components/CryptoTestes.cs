@@ -1,9 +1,6 @@
-﻿using Xunit;
-using System.Net.Mail;
-using System.Net;
-using System;
+﻿using System.Diagnostics;
 using CafeiteiraFast.Components;
-using System.Diagnostics;
+using Xunit;
 
 namespace CafeteiraFast.Testes
 {

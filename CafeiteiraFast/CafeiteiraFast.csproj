@@ -70,6 +70,9 @@
     <Compile Include="ViewModels\IndexViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="AppData\CafeProntoSample.htm" />
+    <Content Include="AppData\CafeteiraStatus.xml" />
+    <Content Include="AppData\EmailsCafePronto.txt" />
     <Content Include="Scripts\jquery-2.0.1.min.js" />
     <Content Include="Global.asax" />
     <Content Include="Web.config">

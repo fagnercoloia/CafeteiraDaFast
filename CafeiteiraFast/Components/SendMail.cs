@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Net;
 using System.Net.Mail;
-using System.Net;
-using System.Configuration;
 
 namespace CafeiteiraFast.Components
 {
@@ -14,7 +9,6 @@ namespace CafeiteiraFast.Components
         {
             var cliente = new SmtpClient();
             var credential = cliente.Credentials as NetworkCredential;
-            credential.Password = Crypto.Decrypt(credential.Password);
 
             var remetente = new MailAddress(credential.UserName);
             var destinatario = new MailAddress(to);

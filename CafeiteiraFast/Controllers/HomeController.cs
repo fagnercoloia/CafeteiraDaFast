@@ -1,11 +1,12 @@
 ﻿using System;
-using SysIO = System.IO;
-using System.Web;
+using System.Collections.Generic;
+using System.IO;
 using System.Web.Mvc;
 using System.Xml.Serialization;
+using CafeiteiraFast.Components;
 using CafeiteiraFast.Models;
 using CafeiteiraFast.ViewModels;
-using CafeiteiraFast.Components;
+using SysIO = System.IO;
 
 namespace CafeiteiraFast.Controllers
 {
@@ -82,8 +83,8 @@ namespace CafeiteiraFast.Controllers
                     }
                 }
                 statusCafeteira = new CafeteiraStatus { Data = data, Status = CafeteiraStatus.eStatus.Pronto };
-
                 SalvarCateteiraStatus(statusCafeteira);
+                EnviarNotificacao(statusCafeteira);
             }
             catch (Exception ex)
             {
@@ -140,6 +141,39 @@ namespace CafeiteiraFast.Controllers
             {
                 var xmlSerializer = new XmlSerializer(typeof(CafeteiraStatus));
                 xmlSerializer.Serialize(file, status);
+            }
+        }
+
+        public void EnviarNotificacao(CafeteiraStatus statusCafeteira)
+        {
+            var baseDirectory = SysIO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "AppData");
+            var filenameSampleMail = SysIO.Path.Combine(baseDirectory, "CafeProntoSample.htm");
+            var filenameEmails = SysIO.Path.Combine(baseDirectory, "EmailsCafePronto.txt");
+            if (SysIO.File.Exists(filenameEmails) && SysIO.File.Exists(filenameSampleMail))
+            {
+                var emails = new List<string>();
+                using (var emailReader = new StreamReader(filenameEmails))
+                {
+                    while(!emailReader.EndOfStream)
+                    {
+                        emails.Add(emailReader.ReadLine());
+                    }
+                }
+
+                if (emails.Count > 0)
+                {
+                    string mensagem;
+                    using (var sampleMailReader = new StreamReader(filenameSampleMail))
+                    {
+                        mensagem = sampleMailReader.ReadToEnd();
+                    }
+                    mensagem = mensagem.Replace("#Data#", statusCafeteira.Data.ToString());
+
+                    foreach (var destinatario in emails)
+                    {
+                        SendMail.Send(destinatario, "Café Pronto", mensagem);
+                    }
+                }
             }
         }
     }
