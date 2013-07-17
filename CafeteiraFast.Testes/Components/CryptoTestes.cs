@@ -9,7 +9,7 @@ namespace CafeteiraFast.Testes
         [Fact]
         public void TesteEncrypt()
         {
-            var original = "fcoloia1983";
+            var original = "teste";
             Debug.WriteLine(Crypto.Encrypt(original));
         }
 
