@@ -1,0 +1,5 @@
+http://msdn.microsoft.com/en-us/library/windowsphone/develop/microsoft.phone.scheduler.periodictask(v=vs.105).aspx
+http://www.androidbrasilprojetos.org/tutoriais/criando-uma-aplicacao-em-background/
+http://blogs.msdn.com/b/africaapps/archive/2013/02/25/parsing-json-in-windows-phone-apps.aspx
+http://json.codeplex.com/
+http://stackoverflow.com/questions/10830071/parsing-json-in-windows-phone-c-sharp

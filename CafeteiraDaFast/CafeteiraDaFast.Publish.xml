@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<publishData>
+  <publishProfile publishUrl="F:\Fagner\GitHub\Deploy" deleteExistingFiles="True" ftpAnonymousLogin="False" ftpPassiveMode="True" msdeploySite="" msdeploySiteID="" msdeployRemoteSitePhysicalPath="" msdeployAllowUntrustedCertificate="False" msdeploySkipExtraFilesOnServer="True" msdeployMarkAsApp="False" profileName="Profile1" publishMethod="FileSystem" replaceMatchingFiles="False" userName="" savePWD="False" userPWD="" SelectedForPublish="True">
+    <file relUrl="Scripts/MicrosoftMvcValidation.js" publishTime="06/13/2013 09:43:45" />
+    <file relUrl="Views/Shared/Error.aspx" publishTime="06/13/2013 09:43:45" />
+    <file relUrl="Scripts/MicrosoftMvcAjax.debug.js" publishTime="06/13/2013 09:43:45" />
+    <file relUrl="Scripts/jquery-1.4.1.js" publishTime="06/13/2013 09:43:45" />
+    <file relUrl="Scripts/jquery.validate-vsdoc.js" publishTime="06/13/2013 09:43:45" />
+    <file relUrl="Scripts/jquery.validate.js" publishTime="06/13/2013 09:43:45" />
+    <file relUrl="Views/Home/Index.aspx" publishTime="06/27/2013 16:17:28" />
+    <file relUrl="Scripts/jquery.validate.min.js" publishTime="06/13/2013 09:43:45" />
+    <file relUrl="AppData/EmailsCafePronto.txt" publishTime="07/12/2013 14:22:41" />
+    <file relUrl="bin/CafeiteiraFast.pdb" publishTime="07/15/2013 12:32:42" />
+    <file relUrl="Scripts/MicrosoftAjax.js" publishTime="06/13/2013 09:43:45" />
+    <file relUrl="Scripts/jquery-2.0.1.min.js" publishTime="06/18/2013 13:10:00" />
+    <file relUrl="Views/Web.config" publishTime="06/13/2013 09:43:45" />
+    <file relUrl="bin/CafeiteiraFast.dll" publishTime="07/15/2013 12:32:43" />
+    <file relUrl="Views/Shared/Site.Master" publishTime="06/18/2013 16:09:13" />
+    <file relUrl="Content/Site.css" publishTime="06/13/2013 10:11:48" />
+    <file relUrl="Scripts/MicrosoftMvcValidation.debug.js" publishTime="06/13/2013 09:43:45" />
+    <file relUrl="Web.config" publishTime="07/15/2013 12:33:01" />
+    <file relUrl="Global.asax" publishTime="06/13/2013 10:09:42" />
+    <file relUrl="Scripts/jquery-1.4.1-vsdoc.js" publishTime="06/13/2013 09:43:45" />
+    <file relUrl="AppData/CafeProntoSample.htm" publishTime="07/12/2013 14:20:36" />
+    <file relUrl="Scripts/MicrosoftMvcAjax.js" publishTime="06/13/2013 09:43:45" />
+    <file relUrl="AppData/CafeteiraStatus.xml" publishTime="06/27/2013 16:12:15" />
+    <file relUrl="Scripts/jquery-1.4.1.min.js" publishTime="06/13/2013 09:43:45" />
+    <file relUrl="Scripts/MicrosoftAjax.debug.js" publishTime="06/13/2013 09:43:45" />
+  </publishProfile>
+</publishData>
