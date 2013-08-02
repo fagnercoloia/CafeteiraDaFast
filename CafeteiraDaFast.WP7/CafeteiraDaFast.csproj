@@ -9,8 +9,8 @@
     <ProjectTypeGuids>{C089C8C0-30E0-4E22-80C0-CE093F111A43};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>CafeteiraDaFast.WP7</RootNamespace>
-    <AssemblyName>CafeteiraDaFast.WP7</AssemblyName>
+    <RootNamespace>CafeteiraDaFast</RootNamespace>
+    <AssemblyName>CafeteiraDaFast</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <SilverlightVersion>$(TargetFrameworkVersion)</SilverlightVersion>
     <TargetFrameworkProfile>WindowsPhone71</TargetFrameworkProfile>
@@ -20,9 +20,9 @@
     </SupportedCultures>
     <XapOutputs>true</XapOutputs>
     <GenerateSilverlightManifest>true</GenerateSilverlightManifest>
-    <XapFilename>CafeteiraDaFast.WP7.xap</XapFilename>
+    <XapFilename>CafeteiraDaFast.xap</XapFilename>
     <SilverlightManifestTemplate>Properties\AppManifest.xml</SilverlightManifestTemplate>
-    <SilverlightAppEntry>CafeteiraDaFast.WP7.App</SilverlightAppEntry>
+    <SilverlightAppEntry>CafeteiraDaFast.App</SilverlightAppEntry>
     <ValidateXaml>true</ValidateXaml>
     <ThrowErrorsInValidation>true</ThrowErrorsInValidation>
   </PropertyGroup>
@@ -61,7 +61,7 @@
     <Reference Include="mscorlib.extensions" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\CafeiteiraFast\Models\CafeteiraStatus.cs">
+    <Compile Include="..\CafeteiraDaFast\Models\CafeteiraStatus.cs">
       <Link>Classes\CafeteiraStatus.cs</Link>
     </Compile>
     <Compile Include="App.xaml.cs">
@@ -97,7 +97,6 @@
     <Content Include="Content\logo.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="SplashScreenImage.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\Silverlight for Phone\$(TargetFrameworkVersion)\Microsoft.Silverlight.$(TargetFrameworkProfile).Overrides.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\Silverlight for Phone\$(TargetFrameworkVersion)\Microsoft.Silverlight.CSharp.targets" />

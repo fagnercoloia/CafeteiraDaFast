@@ -3,9 +3,9 @@ using Microsoft.Phone.Controls;
 using System.Net;
 using System;
 using Newtonsoft.Json;
-using CafeteiraFast.Models;
+using CafeteiraDaFast.Models;
 
-namespace CafeteiraDaFast.WP7
+namespace CafeteiraDaFast
 {
     public partial class MainPage : PhoneApplicationPage
     {
@@ -23,6 +23,8 @@ namespace CafeteiraDaFast.WP7
             var webClient = new WebClient();
             webClient.DownloadStringCompleted += new DownloadStringCompletedEventHandler(webClient_DownloadStringCompleted);
             webClient.DownloadStringAsync(new Uri(@"http://moonha/CafeteiraDaFast/Home/GetStatus/"));
+
+            lblMensagem.Text = "Obtendo status da Cafeteira da Fast";
         }
 
         void webClient_DownloadStringCompleted(object sender, DownloadStringCompletedEventArgs e)
@@ -34,7 +36,9 @@ namespace CafeteiraDaFast.WP7
                     var status = JsonConvert.DeserializeObject<CafeteiraStatus>(e.Result);
                     lblMensagem.Text = status.Mensagem;
                 }
-                catch { }
+                catch {
+                    lblMensagem.Text = "Não foi possivel obter dados da Cafeteira da Fast";
+                }
             }
         }
     }

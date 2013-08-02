@@ -13,7 +13,7 @@ using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
 
-namespace CafeteiraDaFast.WP7
+namespace CafeteiraDaFast
 {
     public partial class App : Application
     {

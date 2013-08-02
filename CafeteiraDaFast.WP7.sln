@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CafeteiraDaFast.WP7", "CafeteiraDaFast.WP7\CafeteiraDaFast.WP7.csproj", "{2D6649B8-63AE-4D2A-8118-E53527ABC43B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CafeteiraDaFast", "CafeteiraDaFast.WP7\CafeteiraDaFast.csproj", "{2D6649B8-63AE-4D2A-8118-E53527ABC43B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

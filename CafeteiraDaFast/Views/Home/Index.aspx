@@ -35,4 +35,7 @@
         <a class="botao" id="btnPronto" href="<%= Url.Action("Pronto") %>">Pronto!!!</a>
     </div>
     <%} %>
+    <br />
+    <asp:HyperLink ID="HyperLink1" runat="server" 
+        NavigateUrl="~/Content/CafeteiraDaFast.apk">CafeteiraDaFast.apk</asp:HyperLink>
 </asp:Content>
