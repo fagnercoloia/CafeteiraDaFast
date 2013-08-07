@@ -18,6 +18,7 @@ namespace CafeteiraDaFast.Models
         public DateTime Data { get; set; }
         public eStatus Status { get; set; }
 
+        [System.Xml.Serialization.XmlIgnore]
         public string Mensagem
         {
             get

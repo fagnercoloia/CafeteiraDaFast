@@ -20,6 +20,9 @@
     </Capabilities>
     <Tasks>
       <DefaultTask Name="_default" NavigationPage="MainPage.xaml" />
+      <ExtendedTask Name="BackgroundTask">
+        <BackgroundServiceAgent Specifier="ScheduledTaskAgent" Name="CafeteiraDaFast.TaskAgent" Source="CafeteiraDaFast.TaskAgent" Type="CafeteiraDaFast.TaskAgent.ScheduledAgent" />
+      </ExtendedTask>
     </Tasks>
     <Tokens>
       <PrimaryToken TokenID="CafeteiraDaFast.WP7Token" TaskName="_default">
