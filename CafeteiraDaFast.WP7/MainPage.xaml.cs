@@ -47,24 +47,6 @@ namespace CafeteiraDaFast
             {
                 StartPeriodicAgent();
             }
-
-            //resourceIntensiveTask = ScheduledActionService.Find(resourceIntensiveTaskName) as ResourceIntensiveTask;
-            //if (periodicTask != null)
-            //{
-            //    StartResourceIntensiveAgent();
-            //}
-
-            //// var periodicTask = new PeriodicTask(ScheduledAgent.TASK_NAME);
-            //periodicTask.Description = "Are presenting a periodic task";
-            //try
-            //{
-            //    ScheduledActionService.Add(periodicTask);
-            //    ScheduledActionService.LaunchForTest(ScheduledAgent.TASK_NAME, TimeSpan.FromSeconds(10));
-            //}
-            //catch (Exception ex)
-            //{
-
-            //}
         }
 
         private void StartPeriodicAgent()
@@ -174,8 +156,6 @@ namespace CafeteiraDaFast
                     lblMensagem.Text = status.Mensagem;
 
                     ScheduledAgent.UpdateAppTile(status);
-
-                    IsolatedStorageSettings.ApplicationSettings["ultimoStatus"] = status;
                 }
                 catch
                 {

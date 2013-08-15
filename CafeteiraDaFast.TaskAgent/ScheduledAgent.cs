@@ -1,10 +1,12 @@
 ﻿#define DEBUG_AGENT
 
 using System;
+using System.IO;
 using System.IO.IsolatedStorage;
 using System.Linq;
 using System.Net;
 using System.Windows;
+using System.Xml.Serialization;
 using CafeteiraDaFast.Models;
 using Microsoft.Phone.Scheduler;
 using Microsoft.Phone.Shell;
@@ -77,15 +79,14 @@ namespace CafeteiraDaFast.TaskAgent
         {
             try
             {
-                var ultimoStatus = default(CafeteiraStatus);
-                IsolatedStorageSettings.ApplicationSettings.TryGetValue<CafeteiraStatus>("ultimoStatus", out ultimoStatus);
-                
+                var ultimoStatus = ObterUltimoStatus();
+                //IsolatedStorageSettings.ApplicationSettings.TryGetValue<CafeteiraStatus>("ultimoStatus", out ultimoStatus);
+
                 var status = JsonConvert.DeserializeObject<CafeteiraStatus>(e.Result);
                 status.Data = status.Data.AddHours(-3);
-
                 UpdateAppTile(status);
 
-                if (ultimoStatus != null && status.Status == CafeteiraStatus.eStatus.Pronto &&
+                if (status.Status == CafeteiraStatus.eStatus.Pronto &&
                     (status.Data - ultimoStatus.Data) > TimeSpan.FromMilliseconds(30000))
                 {
                     var toast = new ShellToast();
@@ -93,11 +94,50 @@ namespace CafeteiraDaFast.TaskAgent
                     toast.Content = "Cafe Pronto";
                     toast.Show();
                 }
-                IsolatedStorageSettings.ApplicationSettings["ultimoStatus"] = status;
+
+                SalvarUltimoStatus(status);
             }
             finally
             {
                 NotifyComplete();
+            }
+        }
+
+        private static CafeteiraStatus ObterUltimoStatus()
+        {
+            var fileName = "CafeteiraStatus.xml";
+            var storage = IsolatedStorageFile.GetUserStoreForApplication();
+
+            var status = new CafeteiraStatus();
+            if (storage.FileExists(fileName))
+            {
+                using (var file = storage.OpenFile(fileName, FileMode.Open))
+                {
+                    var xml = new XmlSerializer(typeof(CafeteiraStatus));
+                    status = xml.Deserialize(file) as CafeteiraStatus;
+                }
+            }
+            else
+            {
+                status.Data = DateTime.Now;
+            }
+            return status;
+
+            //status.Status = (CafeteiraStatus.eStatus)(IsolatedStorageSettings.ApplicationSettings.Contains("ultimoStatus") ?
+            //        (int)IsolatedStorageSettings.ApplicationSettings["ultimoStatus"] : 0);
+            //status.Data = IsolatedStorageSettings.ApplicationSettings.Contains("ultimaData") ?
+            //    new DateTime((long)IsolatedStorageSettings.ApplicationSettings["ultimaData"]) : DateTime.Now;
+            //return status;
+        }
+
+        private static void SalvarUltimoStatus(CafeteiraStatus status)
+        {
+            var fileName = "CafeteiraStatus.xml";
+            var storage = IsolatedStorageFile.GetUserStoreForApplication();
+            using (var file = storage.OpenFile(fileName, FileMode.Create))
+            {
+                var xml = new XmlSerializer(typeof(CafeteiraStatus));
+                xml.Serialize(file, status);
             }
         }
 
