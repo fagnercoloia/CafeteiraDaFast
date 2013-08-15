@@ -1,18 +1,22 @@
 package cafeteira.fast;
 
 
+import java.util.Date;
 import java.util.Timer;
 
 import cafeteira.fast.CafeteiraStatus.eStatus;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.app.IntentService;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.Handler;
@@ -23,49 +27,52 @@ import android.support.v4.app.NotificationCompat;
 import android.widget.Toast;
 
 @TargetApi(Build.VERSION_CODES.CUPCAKE)
-public class CafeteiraService extends Service {
+public class CafeteiraService extends IntentService  {
+	
+	public CafeteiraService()
+	{
+		super("CafeteiraService");
+	}
+	
+	public CafeteiraService(String name) {
+		super(name);
+	}
+
 	private static CafeteiraService instance = null;
+	
 	String mensagem = "Café Pronto!";
-	Timer timer;
 	Notification notification;
 	MediaPlayer player;
 	public static boolean isInstanceCreated() { 
 	      return instance != null; 
 	}
 	
-	@Override 
-	public void onCreate()
+	public CafeteiraStatus RecuperarStatusCafeteiraLocal()
 	{
-		instance = this;
+		SharedPreferences settings = getSharedPreferences("StatusCafeteira", 0);
 		
-		player = MediaPlayer.create(this, R.raw.coffeeready);
-		player.setLooping(false);
-		
-		notification = new Notification(R.drawable.icon, mensagem,  System.currentTimeMillis()); 
+		CafeteiraStatus status = new CafeteiraStatus();
+		status.Status = CafeteiraStatus.eStatus.fromInteger(
+				settings.getInt("Status", 0));
+		status.Data = new Date(
+				settings.getLong("Data", 0));
+		return status;
 	}
 	
-	@Override 
-	public void onDestroy() 
+	public void GuardarStatusCafeteiraLocal(CafeteiraStatus status)
 	{
-		instance = null;
-		player.stop();
+		SharedPreferences settings = getSharedPreferences("StatusCafeteira", 0);
+		
+		Editor editor = settings.edit();
+		editor.putInt("Status", status.Status.ordinal());
+		editor.putLong("Data", status.Data.getTime());
+		editor.commit();
 	}
 	
-	@Override
-	public IBinder onBind(Intent arg0) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	
-	@Override
-	public void onStart(Intent intent, int startId) {
-		timer = new Timer();
-		timer.schedule(new VerificaStatusCafeteira(handler), 0, 30000);
-	}
-	
-	CafeteiraStatus ultimoStatus;
 	final Handler handler = new Handler(new Callback() {
 		public boolean handleMessage(Message arg0) {
+			
+			CafeteiraStatus ultimoStatus = RecuperarStatusCafeteiraLocal();
 			
 			CafeteiraStatus status = (CafeteiraStatus)arg0.obj;
 			if(ultimoStatus != null && status.Status == eStatus.Pronto &&
@@ -77,14 +84,18 @@ public class CafeteiraService extends Service {
 				
 				PendingIntent nullIntent = PendingIntent.getActivity(context, 0, null, 0);
 				notification.setLatestEventInfo(context, getText(R.string.app_name), mensagem, nullIntent);
-				// nm.cancel(550);
+				
 				notificationManager.notify(1, notification);
-				/* Toast.makeText(CafeteiraService.instance, 
-						"Cafeteira da FAST: Café Pronto", Toast.LENGTH_LONG).show(); */
 				player.start();
 			}
-			ultimoStatus = status;
+			GuardarStatusCafeteiraLocal(status);
+			
 			return false;
 		};
     });
+    
+	@Override
+	protected void onHandleIntent(Intent intent) {
+		new VerificaStatusCafeteira(handler);
+	}
 }

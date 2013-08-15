@@ -23,7 +23,6 @@ public class VerificaStatusCafeteira extends TimerTask {
 	Handler handler;
 	
 	public VerificaStatusCafeteira(Handler handler) {
-		// TODO Auto-generated constructor stub
 		this.handler = handler;
 	}
 	
@@ -34,7 +33,6 @@ public class VerificaStatusCafeteira extends TimerTask {
  	    	Message msg = new Message();
  	    	msg.obj = status;
  	    	handler.sendMessage(msg);
-     	   // 
  	    }
 	}
 	
