@@ -49,9 +49,8 @@
     <Reference Include="mscorlib.extensions" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\CafeteiraDaFast\Models\CafeteiraStatus.cs">
-      <Link>CafeteiraStatus.cs</Link>
-    </Compile>
+    <Compile Include="CafeteiraStatus.cs" />
+    <Compile Include="Channel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\Silverlight for Phone\$(TargetFrameworkVersion)\Microsoft.Silverlight.$(TargetFrameworkProfile).Overrides.targets" />

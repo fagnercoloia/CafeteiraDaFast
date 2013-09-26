@@ -1,22 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Windows;
 using System.Linq;
-using System.Net;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Animation;
 using System.Windows.Navigation;
-using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
+using Microsoft.Phone.Notification;
+using Microsoft.WindowsAzure.MobileServices;
+using CafeteiraDaFast.Model;
+using System;
 
 namespace CafeteiraDaFast
 {
     public partial class App : Application
     {
+        public static MobileServiceClient MobileService = new MobileServiceClient(
+            "https://cafeteiradafast.azure-mobile.net/",
+            "qwZVPUhbYmfOCYVuXHKTcPsfuQmyAb46"
+        );
+
+        public static HttpNotificationChannel CurrentChannel { get; private set; }
+
         /// <summary>
         /// Provides easy access to the root frame of the Phone Application.
         /// </summary>
@@ -63,6 +65,14 @@ namespace CafeteiraDaFast
         // This code will not execute when the application is reactivated
         private void Application_Launching(object sender, LaunchingEventArgs e)
         {
+            try
+            {
+                AcquirePushChannel();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         // Code to execute when the application is activated (brought to foreground)
@@ -138,5 +148,31 @@ namespace CafeteiraDaFast
         }
 
         #endregion
+
+        private void AcquirePushChannel()
+        {
+            CurrentChannel = HttpNotificationChannel.Find("StatusCafeteiraChannel");
+            if (CurrentChannel == null)
+            {
+                CurrentChannel = new HttpNotificationChannel("StatusCafeteiraChannel");
+                CurrentChannel.Open();
+                // CurrentChannel.BindToShellTile();
+                CurrentChannel.BindToShellToast();
+            }
+            
+            CurrentChannel.ChannelUriUpdated += CurrentChannel_ChannelUriUpdated;
+        }
+
+        async void CurrentChannel_ChannelUriUpdated(object sender, NotificationChannelUriEventArgs e)
+        {
+            var channelUri = e.ChannelUri.AbsoluteUri;
+            var channels = MobileService.GetTable<Channel>();
+
+            var query = await channels.Where(x => x.Uri == channelUri).ToListAsync();
+            if (!query.Any())
+            {
+                await channels.InsertAsync(new Channel { Uri = e.ChannelUri.AbsoluteUri });
+            }
+        }
     }
 }

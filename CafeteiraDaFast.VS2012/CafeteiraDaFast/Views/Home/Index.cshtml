@@ -1,0 +1,69 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script type="text/javascript">
+    $(document).ready(function () {
+        var divMensagem = $("#mensagem");
+        var botaoIniciar = $("#botaoIniciar");
+        var botaoPronto = $("#botaoPronto");
+
+        var verificarStatusCafeteira = function() {
+            botaoIniciar.hide();
+            botaoPronto.hide();
+
+            $.getJSON("@Url.Action("GetStatus")")
+            .done(function (data) {
+
+                divMensagem.css("color", "");
+                divMensagem.html(data.Mensagem);
+
+                if (data.PodeIniciar) {
+                    botaoIniciar.show();
+                }
+                if (data.PodeTerminar) {
+                    botaoPronto.show();
+                }
+            })
+            .fail(function (data) {
+                divMensagem.css("color", "red");
+                divMensagem.html("Ocorreu um erro ao tentar obter as informações");
+
+            });
+        };
+
+        var iniciar = function() {
+            $.post("@Url.Action("Iniciar")")
+            .done(function () {
+                verificarStatusCafeteira();
+            })
+            .fail(function (data) {
+                divMensagem.css("color", "red");
+                divMensagem.html("Ocorreu um erro ao tentar Iniciar");
+            });
+        }
+
+        var pronto = function () {
+            $.post("@Url.Action("Pronto")")
+            .done(function () {
+                verificarStatusCafeteira();
+            })
+            .fail(function (data) {
+                divMensagem.css("color", "red");
+                divMensagem.html("Ocorreu um erro ao tentar Terminar");
+            });
+        }
+
+        botaoIniciar.bind("click", iniciar);
+        botaoPronto.bind("click", pronto);
+
+        verificarStatusCafeteira();
+    });
+</script>
+
+<div id="mensagem" class="message"></div><br />
+<div style="margin-bottom: 10px;">
+    <a class="botao" id="botaoIniciar" style="display: none;" href="#">Iniciar</a>
+</div>
+<div>
+    <a class="botao" id="botaoPronto" style="display: none;"  href="#">Pronto!!!</a>
+</div>

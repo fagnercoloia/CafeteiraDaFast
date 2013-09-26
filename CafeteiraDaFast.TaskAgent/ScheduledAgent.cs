@@ -1,38 +1,26 @@
 ﻿#define DEBUG_AGENT
 
 using System;
-using System.IO;
-using System.IO.IsolatedStorage;
 using System.Linq;
-using System.Net;
-using System.Windows;
-using System.Xml.Serialization;
 using CafeteiraDaFast.Models;
-using Microsoft.Phone.Scheduler;
 using Microsoft.Phone.Shell;
-using Newtonsoft.Json;
 
 namespace CafeteiraDaFast.TaskAgent
 {
-    public class ScheduledAgent : ScheduledTaskAgent
+    public class ScheduledAgent // : ScheduledTaskAgent
     {
         public const string TASK_NAME = "CafeteiraDaFastTask";
-
+        public const string URLSTATUS = "http://cafeteiradafast.azurewebsites.net/Home/GetStatus";
+        /*
         private static volatile bool _classInitialized;
         /// <remarks>
         /// ScheduledAgent constructor, initializes the UnhandledException handler
         /// </remarks>
         public ScheduledAgent()
         {
-            
             if (!_classInitialized)
             {
                 _classInitialized = true;
-
-                //var toast = new ShellToast();
-                //toast.Title = "Cafeteira da FAST";
-                //toast.Content = "Task Criada";
-                //toast.Show();
 
                 // Subscribe to the managed exception handler
                 Deployment.Current.Dispatcher.BeginInvoke(delegate
@@ -52,22 +40,13 @@ namespace CafeteiraDaFast.TaskAgent
             }
         }
 
-        /// <summary>
-        /// Agent that runs a scheduled task
-        /// </summary>
-        /// <param name="task">
-        /// The invoked task
-        /// </param>
-        /// <remarks>
-        /// This method is called when a periodic or resource intensive task is invoked
-        /// </remarks>
         protected override void OnInvoke(ScheduledTask task)
         {
             try
             {
                 var webClient = new WebClient();
                 webClient.DownloadStringCompleted += new DownloadStringCompletedEventHandler(webClient_DownloadStringCompleted);
-                webClient.DownloadStringAsync(new Uri(@"http://moonha/CafeteiraDaFast/Home/GetStatus/"));
+                webClient.DownloadStringAsync(new Uri(URLSTATUS));
             }
             catch
             {
@@ -122,12 +101,6 @@ namespace CafeteiraDaFast.TaskAgent
                 status.Data = DateTime.Now;
             }
             return status;
-
-            //status.Status = (CafeteiraStatus.eStatus)(IsolatedStorageSettings.ApplicationSettings.Contains("ultimoStatus") ?
-            //        (int)IsolatedStorageSettings.ApplicationSettings["ultimoStatus"] : 0);
-            //status.Data = IsolatedStorageSettings.ApplicationSettings.Contains("ultimaData") ?
-            //    new DateTime((long)IsolatedStorageSettings.ApplicationSettings["ultimaData"]) : DateTime.Now;
-            //return status;
         }
 
         private static void SalvarUltimoStatus(CafeteiraStatus status)
@@ -140,6 +113,7 @@ namespace CafeteiraDaFast.TaskAgent
                 xml.Serialize(file, status);
             }
         }
+        */
 
         public static void UpdateAppTile(CafeteiraStatus status)
         {
@@ -155,6 +129,7 @@ namespace CafeteiraDaFast.TaskAgent
 
                 appTile.Update(tileData);
             }
-        } 
+        }
+        
     }
 }

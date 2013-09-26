@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<CafeteiraStatus xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Data>2013-09-26T09:05:05.9471906-03:00</Data>
+  <Status>Pronto</Status>
+  <PodeIniciar>false</PodeIniciar>
+  <PodeTerminar>false</PodeTerminar>
+  <Mensagem>Cafeteira terminou de fazer o café a 0 dia(s) 0 hora(s) e 0 minuto(s).</Mensagem>
+</CafeteiraStatus>

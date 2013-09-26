@@ -12,3 +12,11 @@ CafeteiraDaFast/Content/CafeteiraDaFast.apk
 CafeteiraDaFast.Model/obj/
 CafeteiraDaFast.TaskAgent/Bin/
 CafeteiraDaFast.TaskAgent/obj/
+CafeteiraDaFast.VS2012/CafeteiraDaFast.Tests/bin/
+CafeteiraDaFast.VS2012/CafeteiraDaFast.Tests/obj/
+*.pubxml
+CafeteiraDaFast.VS2012/CafeteiraDaFast/bin/
+CafeteiraDaFast.VS2012/CafeteiraDaFast/obj/
+*.PublishSettings
+CafeteiraDaFast.VS2012/packages/
+packages/

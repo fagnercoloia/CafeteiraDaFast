@@ -38,17 +38,18 @@ namespace CafeteiraDaFast
             // TODO: Ler dados do servico
             var webClient = new WebClient();
             webClient.DownloadStringCompleted += new DownloadStringCompletedEventHandler(webClient_DownloadStringCompleted);
-            webClient.DownloadStringAsync(new Uri(@"http://moonha/CafeteiraDaFast/Home/GetStatus/"));
+            webClient.DownloadStringAsync(new Uri(ScheduledAgent.URLSTATUS));
 
             lblMensagem.Text = "Obtendo status da Cafeteira da Fast";
-
+            /*
             periodicTask = ScheduledActionService.Find(ScheduledAgent.TASK_NAME) as PeriodicTask;
             if (periodicTask == null)
             {
                 StartPeriodicAgent();
             }
+            */
         }
-
+        /*
         private void StartPeriodicAgent()
         {
             // Variable for tracking enabled status of background agents for this app.
@@ -144,6 +145,7 @@ namespace CafeteiraDaFast
             {
             }
         }
+        */
 
         void webClient_DownloadStringCompleted(object sender, DownloadStringCompletedEventArgs e)
         {
@@ -152,7 +154,10 @@ namespace CafeteiraDaFast
                 try
                 {
                     var status = JsonConvert.DeserializeObject<CafeteiraStatus>(e.Result);
-                    status.Data = status.Data.AddHours(-3);
+                    if(status.Data > DateTime.MinValue.AddHours(3))
+                    {
+                        status.Data = status.Data.AddHours(-3);
+                    }
                     lblMensagem.Text = status.Mensagem;
 
                     ScheduledAgent.UpdateAppTile(status);
