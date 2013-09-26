@@ -159,20 +159,26 @@ namespace CafeteiraDaFast
                 // CurrentChannel.BindToShellTile();
                 CurrentChannel.BindToShellToast();
             }
-            
+
             CurrentChannel.ChannelUriUpdated += CurrentChannel_ChannelUriUpdated;
         }
 
-        async void CurrentChannel_ChannelUriUpdated(object sender, NotificationChannelUriEventArgs e)
+        
+
+        /* async */
+        void CurrentChannel_ChannelUriUpdated(object sender, NotificationChannelUriEventArgs e)
         {
             var channelUri = e.ChannelUri.AbsoluteUri;
             var channels = MobileService.GetTable<Channel>();
+            channels.InsertAsync(new Channel { Uri = e.ChannelUri.AbsoluteUri });
 
+            /*
             var query = await channels.Where(x => x.Uri == channelUri).ToListAsync();
             if (!query.Any())
             {
                 await channels.InsertAsync(new Channel { Uri = e.ChannelUri.AbsoluteUri });
             }
+            */
         }
     }
 }

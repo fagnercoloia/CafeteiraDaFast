@@ -20,3 +20,4 @@ CafeteiraDaFast.VS2012/CafeteiraDaFast/obj/
 *.PublishSettings
 CafeteiraDaFast.VS2012/packages/
 packages/
+.nuget/

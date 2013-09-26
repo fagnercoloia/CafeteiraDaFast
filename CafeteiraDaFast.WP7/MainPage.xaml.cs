@@ -8,21 +8,36 @@ using CafeteiraDaFast.TaskAgent;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Scheduler;
 using Newtonsoft.Json;
+using Microsoft.Phone.Notification;
 
 namespace CafeteiraDaFast
 {
     public partial class MainPage : PhoneApplicationPage
     {
+        /*
         PeriodicTask periodicTask;
         ResourceIntensiveTask resourceIntensiveTask;
 
         string resourceIntensiveTaskName = "ResourceIntensiveAgent";
+        
         public bool agentsAreEnabled = true;
+        */
 
         // Constructor
         public MainPage()
         {
             InitializeComponent();
+
+            // App.CurrentChannel.ShellToastNotificationReceived += new EventHandler<NotificationEventArgs>(CurrentChannel_ShellToastNotificationReceived);
+        }
+
+        void CurrentChannel_ShellToastNotificationReceived(object sender, NotificationEventArgs e)
+        {
+            //Dispatcher.BeginInvoke(
+            //    () =>
+            //    {
+            //        MessageBox.Show(e.Collection["wp:Text1"]  /*  + Environment.NewLine+ e.Collection["wp:Text2"] */);
+            //    });
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -154,7 +169,7 @@ namespace CafeteiraDaFast
                 try
                 {
                     var status = JsonConvert.DeserializeObject<CafeteiraStatus>(e.Result);
-                    if(status.Data > DateTime.MinValue.AddHours(3))
+                    if (status.Data > DateTime.MinValue.AddHours(3))
                     {
                         status.Data = status.Data.AddHours(-3);
                     }
