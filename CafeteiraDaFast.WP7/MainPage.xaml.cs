@@ -28,16 +28,16 @@ namespace CafeteiraDaFast
         {
             InitializeComponent();
 
-            // App.CurrentChannel.ShellToastNotificationReceived += new EventHandler<NotificationEventArgs>(CurrentChannel_ShellToastNotificationReceived);
+            App.CurrentChannel.ShellToastNotificationReceived += new EventHandler<NotificationEventArgs>(CurrentChannel_ShellToastNotificationReceived);
         }
 
         void CurrentChannel_ShellToastNotificationReceived(object sender, NotificationEventArgs e)
         {
-            //Dispatcher.BeginInvoke(
-            //    () =>
-            //    {
-            //        MessageBox.Show(e.Collection["wp:Text1"]  /*  + Environment.NewLine+ e.Collection["wp:Text2"] */);
-            //    });
+            Dispatcher.BeginInvoke(
+                () =>
+                {
+                    MessageBox.Show(e.Collection["wp:Text1"]  /*  + Environment.NewLine+ e.Collection["wp:Text2"] */);
+                });
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -49,20 +49,16 @@ namespace CafeteiraDaFast
             {
                 lblMensagem.Text = status.Mensagem;
             }
+            
+            lblMensagem.Text = "Obtendo status da Cafeteira da Fast";
+            ObterStatusCafeteira();
+        }
 
-            // TODO: Ler dados do servico
+        private void ObterStatusCafeteira()
+        {
             var webClient = new WebClient();
             webClient.DownloadStringCompleted += new DownloadStringCompletedEventHandler(webClient_DownloadStringCompleted);
             webClient.DownloadStringAsync(new Uri(ScheduledAgent.URLSTATUS));
-
-            lblMensagem.Text = "Obtendo status da Cafeteira da Fast";
-            /*
-            periodicTask = ScheduledActionService.Find(ScheduledAgent.TASK_NAME) as PeriodicTask;
-            if (periodicTask == null)
-            {
-                StartPeriodicAgent();
-            }
-            */
         }
         /*
         private void StartPeriodicAgent()
@@ -173,7 +169,11 @@ namespace CafeteiraDaFast
                     {
                         status.Data = status.Data.AddHours(-3);
                     }
+
                     lblMensagem.Text = status.Mensagem;
+
+                    btnIniciar.Visibility = status.PodeIniciar ? System.Windows.Visibility.Visible : System.Windows.Visibility.Collapsed;
+                    btnPronto.Visibility = status.PodeTerminar ? System.Windows.Visibility.Visible : System.Windows.Visibility.Collapsed;
 
                     ScheduledAgent.UpdateAppTile(status);
                 }
@@ -182,6 +182,32 @@ namespace CafeteiraDaFast
                     lblMensagem.Text = "Não foi possivel obter dados da Cafeteira da Fast";
                 }
             }
+        }
+
+        private void btnIniciar_Click(object sender, RoutedEventArgs e)
+        {
+            WebPostRequest(ScheduledAgent.URLINICIAR);
+        }
+
+        private void btnPronto_Click(object sender, RoutedEventArgs e)
+        {
+            WebPostRequest(ScheduledAgent.URLPRONTO);
+        }
+
+        private void WebPostRequest(string url)
+        {
+            btnIniciar.Visibility = System.Windows.Visibility.Collapsed;
+            btnPronto.Visibility = System.Windows.Visibility.Collapsed;
+
+            var webrequest = WebRequest.Create(new Uri(url));
+            webrequest.Method = "POST";
+            webrequest.BeginGetResponse((x) =>
+            {
+                if (x.IsCompleted)
+                {
+                    ObterStatusCafeteira();
+                }
+            }, null);
         }
     }
 }

@@ -11,6 +11,8 @@ namespace CafeteiraDaFast.TaskAgent
     {
         public const string TASK_NAME = "CafeteiraDaFastTask";
         public const string URLSTATUS = "http://cafeteiradafast.azurewebsites.net/Home/GetStatus";
+        public const string URLINICIAR = "http://cafeteiradafast.azurewebsites.net/Home/Iniciar";
+        public const string URLPRONTO = "http://cafeteiradafast.azurewebsites.net/Home/Pronto";
         /*
         private static volatile bool _classInitialized;
         /// <remarks>

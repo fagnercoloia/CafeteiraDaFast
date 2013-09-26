@@ -29,8 +29,8 @@
         </Grid>
         <TextBlock Grid.Row="1" x:Name="lblMensagem" TextAlignment="Center" TextWrapping="Wrap" Margin="10"  />
         <StackPanel Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Center">
-            <Button x:Name="btnIniciar" Background="#5c87b2" Visibility="Collapsed">Iniciar</Button>
-            <Button x:Name="btnPronto" Background="#5c87b2" Visibility="Collapsed">Pronto</Button>
+            <Button x:Name="btnIniciar" Background="#5c87b2" Visibility="Collapsed" Click="btnIniciar_Click">Iniciar</Button>
+            <Button x:Name="btnPronto" Background="#5c87b2" Visibility="Collapsed" Click="btnPronto_Click">Pronto</Button>
         </StackPanel>
     </Grid>
 </phone:PhoneApplicationPage>

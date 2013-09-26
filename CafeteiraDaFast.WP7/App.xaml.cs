@@ -159,11 +159,8 @@ namespace CafeteiraDaFast
                 // CurrentChannel.BindToShellTile();
                 CurrentChannel.BindToShellToast();
             }
-
             CurrentChannel.ChannelUriUpdated += CurrentChannel_ChannelUriUpdated;
         }
-
-        
 
         /* async */
         void CurrentChannel_ChannelUriUpdated(object sender, NotificationChannelUriEventArgs e)
